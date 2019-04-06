@@ -1,10 +1,9 @@
 {
   "packagerPort": 19001,
-  "packagerPid": 32136,
+  "packagerPid": 11108,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://wg-stq.anonymous.mobileflashcards.exp.direct",
-  "packagerNgrokUrl": "https://packager.wg-stq.anonymous.mobileflashcards.exp.direct",
-  "ngrokPid": 5024,
-  "webpackServerPort": null
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
