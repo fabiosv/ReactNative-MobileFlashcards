@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
-import {getDecks} from '../../helpers/storage'
+import {getDecks} from '../helpers/storage'
 
 export default class DeckList extends Component {
   state = {
@@ -20,6 +20,7 @@ export default class DeckList extends Component {
       <View>
         <FlatList
           data={decks}
+          keyExtractor={item => item.title.toString()}
           renderItem={(deck) => (
             <View>
               <Text>{deck.item.title}</Text>
