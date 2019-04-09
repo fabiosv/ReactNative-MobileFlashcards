@@ -60,9 +60,12 @@ const styles = StyleSheet.create({
 
   },
   listItemTitle: {
-    fontSize: 20,
+    textAlign: 'center',
+    fontSize: 25,
   },
   listItemCount: {
+    textAlign: 'center',
+    fontSize: 18,
     color: gray
   }
 })

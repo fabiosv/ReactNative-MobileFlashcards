@@ -4,27 +4,30 @@ import {gray} from '../helpers/colors'
 
 export default class Deck extends Component {
   render() {
-    const {deck, navigation} = this.props;
-    console.log(deck)
+    const { navigation } = this.props;
+    const { deck } = navigation.state.params
+    // console.log(deck)
     return(
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Deck Title</Text>
-          <Text style={styles.cardsCount}>{3} cards</Text>
+          <Text style={styles.title}>{deck.title}</Text>
+          <Text style={styles.cardsCount}>{deck.questions.length} cards</Text>
         </View>
         <View>
           <TouchableHighlight
             onPress={() => navigation.navigate(
               'AddCard',
-              { deck: 'deck.item' }
+              { deckTitle: deck.title }
             )}
             style={styles.btnAdd}>
               <Text style={styles.btnAddText}>Add Card</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            onPress={() => navigation.navigate(
+            onPress={() => deck.questions.length === 0
+            ? alert("This deck is empty, please add a card first :D")
+            : navigation.navigate(
               'Quiz',
-              { deck: 'deck.item' }
+              { deckTitle: deck.title }
             )}
             style={styles.btnQuiz}>
               <Text style={styles.btnQuizText}>Start Quiz</Text>

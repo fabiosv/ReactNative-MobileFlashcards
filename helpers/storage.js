@@ -9,7 +9,7 @@ async function handleInitialData() {
   return JSON.parse(result);
 }
 
-export async function getDecks(){
+export function getDecks(){
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       console.log("Results: " + results)
@@ -20,22 +20,31 @@ export async function getDecks(){
         console.log("is not null")
         results = JSON.parse(results)
       }
-      console.log("Results Again: " + JSON.stringify(results))
       return results
     })}
-// export function getDecks(){
-//   AsyncStorage.getItem(DECK_STORAGE_KEY)
-//   .then(results => JSON.parse(results));
-// };
 
-// export async function getDecks(){
-//   // return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-//   //   .then((results) => {if(typeof(results) === "undefined") return handleInitialData()})
-//   //   .then((results) => JSON.parse(results))
-// }
-
-export function getDeck(id){}
-export function saveDeckTitle(title){
-  
+export function getDeck(title){
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then((results) => {
+      return JSON.parse(results).filter((deck) => deck.title === title)[0]
+    })
 }
-export function addCardToDeck(title, card){}
+export function saveDeckTitle(title){
+  return getDecks().then((decks) => {
+    decks.push({"title": title, "questions": []})
+    return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+  })
+}
+
+export function addCardToDeck(deckTitle, card){
+  return getDecks().then((results) => {
+    const decks = results.map((deck) => {
+      if(deck.title === deckTitle){
+        deck.questions.push(card)
+      }
+      return deck
+    })
+    console.log("ADDED CARD: "+ JSON.stringify(decks))
+    return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+  })
+}

@@ -1,23 +1,45 @@
 import React, { Component } from 'react'
-import {View, Text, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { AppLoading } from "expo"
 import ProgressBar from '../components/ProgressBar'
+import QuestionCard from '../components/QuestionCard'
+import {getDeck} from '../helpers/storage'
 
 export default class Quiz extends Component {
+  state = {
+    deck: {questions: []},
+    isLoadingComplete: false,
+    currentQuestion: 0
+  }
+
+  componentDidMount(){
+    const { navigation } = this.props;
+    const { deckTitle } = navigation.state.params;
+    console.log(deckTitle)
+    getDeck(deckTitle).then((deck) => {
+      console.log("LOADED Deck " + JSON.stringify(deck))
+      this.setState((currentState) => ({
+        deck: deck,
+        isLoadingComplete: true
+      }))
+    })
+  }
   render() {
-    const barWidth = 6
-    const progress = 35
+    const { deck, currentQuestion } = this.state;
+    const progress = 0;
+    if(!this.state.isLoadingComplete){
+      return(<AppLoading/>)
+    }
     return(
       <View style={styles.container}>
         <View>
-          <ProgressBar value={progress} />
-          <Text>Progress</Text>
+          <ProgressBar value={deck.questions.length > 0 && progress > 0
+            ? progress/deck.questions.length
+            : 0
+          } />
+          <Text>Progress: {progress}/{deck.questions.length}</Text>
         </View>
-        <View>
-          <Text style={styles.question}>Question</Text>
-          <TouchableOpacity>
-            <Text style={styles.btnShowQuestionAnswer}>Answer</Text>
-          </TouchableOpacity>
-        </View>
+        <QuestionCard question={deck.questions[currentQuestion]} />
         <View>
           <TouchableHighlight style={styles.btnCorrect}>
             <Text style={styles.btnText} >Correct</Text>
@@ -32,9 +54,6 @@ export default class Quiz extends Component {
 }
 
 const styles = StyleSheet.create({
-  question: {
-    textAlign: 'center'
-  },
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -57,10 +76,6 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: "white",
-    textAlign: 'center'
-  },
-  btnShowQuestionAnswer: {
-    color: "red",
     textAlign: 'center'
   }
 })

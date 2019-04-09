@@ -8,8 +8,14 @@ export default class NewDeck extends Component {
   }
   onSubmit(){
     const {text} = this.state
-    saveDeckTitle(text)
-    alert("New Deck Created!")
+    saveDeckTitle(text).then((r) => {
+      console.log(r)
+      alert("New Deck Created!")
+      this.setState({text: ""})
+    }).catch((err) => {
+      console.log(err)
+      alert("Ops! Something went wrong, try again please!")
+    })
   }
   render(){
     return(
@@ -20,7 +26,7 @@ export default class NewDeck extends Component {
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
         />
-        <TouchableHighlight style={styles.btnDark}>
+        <TouchableHighlight style={styles.btnDark} onPress={() => this.onSubmit()}>
           <Text style={styles.btnDarkText}>Submit</Text>
         </TouchableHighlight>
       </View>
