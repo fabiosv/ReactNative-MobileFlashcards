@@ -2,14 +2,12 @@ import React from 'react'
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
 import { Constants } from 'expo'
 import AppNavigator from './navigation/AppNavigator'
-import { purple, white } from './helpers/colors'
-// import DeckList from './components/views/DeckList'
-import NewDeck from './screens/NewDeck'
+import { purple, white, blue } from './helpers/colors'
 
-function CustomStatusBar ({backgroundColor, ...props}) {
+function AppStatusBar ({backgroundColor, ...props}) {
   return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={purple} {...props} />
+    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   )
 }
@@ -20,14 +18,10 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log(Constants.statusBarHeight)
     return (
-      <View style={styles.container}>
-        {/* <CustomStatusBar backgroundColor={purple} barStyle="light-content"  /> */}
-        <View style={{ backgroundColor: "#4e4cb8", height: Constants.statusBarHeight }}>
-          <StatusBar backgroundColor="#4e4cb8" barStyle="light-content"/>
-        </View>
-        {/* <NewDeck></NewDeck> */}
-        {/* <Text>Hello</Text> */}
+      <View style={{flex: 1}}>
+        <AppStatusBar backgroundColor={blue} barStyle="light-content" />
         <AppNavigator/>
       </View>
     );

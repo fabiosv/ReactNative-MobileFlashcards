@@ -3,9 +3,20 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation'
 import DeckList from '../screens/DeckList'
 import NewDeck from '../screens/NewDeck'
+import NewCard from '../screens/NewCard'
+import Deck from '../screens/Deck'
+import Quiz from '../screens/Quiz'
 
 const DeckListStack = createStackNavigator({
-  Decks: DeckList,
+  Decks: {
+    screen: DeckList,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Deck: Deck,
+  AddCard: NewCard,
+  Quiz: Quiz
 });
 
 DeckListStack.navigationOptions = {
@@ -13,7 +24,12 @@ DeckListStack.navigationOptions = {
 };
 
 const NewDeckStack = createStackNavigator({
-  NewDeck: NewDeck,
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      header: null
+    }
+  },
 });
 
 NewDeckStack.navigationOptions = {

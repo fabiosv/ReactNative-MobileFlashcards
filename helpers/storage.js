@@ -4,8 +4,8 @@ import {preData} from "../assets/preData"
 DECKS_STORAGE_KEY = "MobileFlashCards:decks"
 
 async function handleInitialData() {
-  await AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(InitialData));
-  const result = await AsyncStorage.getItem(DECK_STORAGE_KEY);
+  await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(preData));
+  const result = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
   return JSON.parse(result);
 }
 
@@ -35,5 +35,7 @@ export async function getDecks(){
 // }
 
 export function getDeck(id){}
-export function saveDeckTitle(title){}
+export function saveDeckTitle(title){
+  
+}
 export function addCardToDeck(title, card){}
