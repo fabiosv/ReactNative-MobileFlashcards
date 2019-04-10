@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableHighlight } from 'react-native'
+import { View, Text, StyleSheet, KeyboardAvoidingView, TextInput, TouchableHighlight } from 'react-native'
 import { addCardToDeck } from '../helpers/storage'
 
 export default class NewCard extends Component {
@@ -24,7 +24,7 @@ export default class NewCard extends Component {
   }
   render() {
     return(
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.inputContainer}>
           <TextInput style={styles.input}
             placeholder="Question"
@@ -38,7 +38,7 @@ export default class NewCard extends Component {
         <TouchableHighlight style={styles.btnDark} onPress={() => this.onSubmit()}>
           <Text style={styles.btnDarkText}>Submit</Text>
         </TouchableHighlight>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 5,
     fontSize: 24,
+    textAlign: 'center'
   },
   correctContainer: {
     flexDirection: 'row',

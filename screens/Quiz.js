@@ -54,6 +54,12 @@ export default class Quiz extends Component {
       ? currentQuestion/questions.length * 100
       : 0
   }
+  restartQuiz = () => {
+    this.setState({
+      currentQuestion: 0,
+      userAnswers: []
+    })
+  }
   render() {
     const { deck, currentQuestion, userAnswers } = this.state;
     if(!this.state.isLoadingComplete){
@@ -61,7 +67,21 @@ export default class Quiz extends Component {
     }
 
     if(currentQuestion >= deck.questions.length){
-      return(<Results results={userAnswers}/>)
+      return(
+        <View style={styles.container}>
+          <Results results={userAnswers}/>
+          <View style={styles.resultsBtnContainer}>
+            <TouchableHighlight style={styles.btnRestart}
+              onPress={() => this.restartQuiz()}>
+                <Text>Restart Quiz</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.btnBackToDeck}
+              onPress={() => this.props.navigation.pop()}>
+                <Text style={styles.btnText}>Back to Deck</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      )
     }
 
     return(
@@ -110,5 +130,24 @@ const styles = StyleSheet.create({
   btnText: {
     color: "white",
     textAlign: 'center'
+  },
+  btnRestart: {
+    backgroundColor: 'lightgray',
+    borderColor: 'black',
+    borderStyle: 'solid',
+    padding: 10,
+    margin: 15,
+    height: 40,
+    borderRadius: 5
+  },
+  btnBackToDeck: {
+    backgroundColor: '#272822',
+    padding: 10,
+    margin: 15,
+    height: 40,
+    borderRadius: 5
+  },
+  resultsBtnContainer: {
+    flexDirection: "row"
   }
 })

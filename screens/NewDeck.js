@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableHighlight } from 'react-native'
+import { Text, StyleSheet, TextInput, TouchableHighlight, KeyboardAvoidingView } from 'react-native'
 import {saveDeckTitle} from '../helpers/storage'
 
 export default class NewDeck extends Component {
@@ -8,20 +8,29 @@ export default class NewDeck extends Component {
   }
   onSubmit(){
     const {text} = this.state
-    saveDeckTitle(text).then((r) => {
-      console.log(r)
-      if(r !== "already exist"){
-        alert("New Deck Created!")
-        this.setState({text: ""})
-      }
-    }).catch((err) => {
-      console.log(err)
-      alert("Ops! Something went wrong, try again please!")
-    })
+    const { navigation } = this.props
+    if(!text) {
+      alert("Please inform a name")
+    } else {
+      saveDeckTitle(text).then((r) => {
+        console.log(r)
+        if(r !== "already exist"){
+          alert("New Deck Created!")
+          this.setState({text: ""})
+          navigation.navigate(
+            'Deck',
+            { deckTitle: text }
+          )
+        }
+      }).catch((err) => {
+        console.log(err)
+        alert("Ops! Something went wrong, try again please!")
+      })
+    }
   }
   render(){
     return(
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <Text style={styles.title}>What is the title of your new deck?</Text>
         <TextInput style={styles.input}
           placeholder="Deck Title"
@@ -31,7 +40,7 @@ export default class NewDeck extends Component {
         <TouchableHighlight style={styles.btnDark} onPress={() => this.onSubmit()}>
           <Text style={styles.btnDarkText}>Submit</Text>
         </TouchableHighlight>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -62,6 +71,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 5,
     fontSize: 24,
+    textAlign: 'center'
     // borderStyle: "solid",
     // border: 3
   }
