@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
+import { StyleSheet, View, StatusBar } from 'react-native'
 import { Constants } from 'expo'
 import AppNavigator from './navigation/AppNavigator'
-import { purple, white, blue } from './helpers/colors'
+import { blue } from './helpers/colors'
 
 function AppStatusBar ({backgroundColor, ...props}) {
   return (
@@ -20,7 +20,7 @@ export default class App extends React.Component {
   render() {
     console.log(Constants.statusBarHeight)
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <AppStatusBar backgroundColor={blue} barStyle="light-content" />
         <AppNavigator/>
       </View>
@@ -31,8 +31,5 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f26f28',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

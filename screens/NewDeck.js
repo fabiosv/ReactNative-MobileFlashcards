@@ -10,8 +10,10 @@ export default class NewDeck extends Component {
     const {text} = this.state
     saveDeckTitle(text).then((r) => {
       console.log(r)
-      alert("New Deck Created!")
-      this.setState({text: ""})
+      if(r !== "already exist"){
+        alert("New Deck Created!")
+        this.setState({text: ""})
+      }
     }).catch((err) => {
       console.log(err)
       alert("Ops! Something went wrong, try again please!")

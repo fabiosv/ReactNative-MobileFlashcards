@@ -1,12 +1,33 @@
 import React, { Component } from 'react'
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native'
 import {gray} from '../helpers/colors'
+import {getDeck} from '../helpers/storage'
 
 export default class Deck extends Component {
+  static navigationOptions = ({navigation}) => {
+    const { deckTitle } = navigation.state.params
+    return {
+      title: deckTitle
+    }
+  }
+  state = {
+    deck: {title: '', questions: []}
+  }
+  loadDeck = () => {
+    const { navigation } = this.props;
+    const { deckTitle } = navigation.state.params
+    getDeck(deckTitle).then((deck) => {
+      this.setState({deck})
+    })
+  }
+
+  componentDidMount(){
+    this.loadDeck()
+  }
+
   render() {
     const { navigation } = this.props;
-    const { deck } = navigation.state.params
-    // console.log(deck)
+    const { deck } = this.state;
     return(
       <View style={styles.container}>
         <View>
@@ -17,7 +38,7 @@ export default class Deck extends Component {
           <TouchableHighlight
             onPress={() => navigation.navigate(
               'AddCard',
-              { deckTitle: deck.title }
+              { deckTitle: deck.title, onAdd: this.loadDeck }
             )}
             style={styles.btnAdd}>
               <Text style={styles.btnAddText}>Add Card</Text>

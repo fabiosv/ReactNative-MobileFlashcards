@@ -1,9 +1,10 @@
 {
+  "packagerPort": 19001,
+  "packagerPid": 10020,
+  "expoServerNgrokUrl": "https://7k-yqy.anonymous.mobileflashcards.exp.direct",
+  "packagerNgrokUrl": "https://packager.7k-yqy.anonymous.mobileflashcards.exp.direct",
+  "ngrokPid": 21148,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 16956,
-  "expoServerNgrokUrl": "https://kf-9mx.anonymous.mobileflashcards.exp.direct",
-  "packagerNgrokUrl": "https://packager.kf-9mx.anonymous.mobileflashcards.exp.direct",
-  "ngrokPid": 25712
+  "webpackServerPort": null
 }

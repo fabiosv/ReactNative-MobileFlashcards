@@ -3,13 +3,15 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { AppLoading } from "expo"
 import ProgressBar from '../components/ProgressBar'
 import QuestionCard from '../components/QuestionCard'
+import Results from '../components/Results'
 import {getDeck} from '../helpers/storage'
 
 export default class Quiz extends Component {
   state = {
     deck: {questions: []},
     isLoadingComplete: false,
-    currentQuestion: 0
+    currentQuestion: 0,
+    userAnswers: []
   }
 
   componentDidMount(){
@@ -24,28 +26,59 @@ export default class Quiz extends Component {
       }))
     })
   }
-  render() {
+  onUserAnswer = (answer) => {
+    const {userAnswers, currentQuestion, deck} = this.state
+    userAnswers.push(answer)
+
+    this.setState({
+      userAnswers,
+      currentQuestion: currentQuestion+1
+    })
+    if(currentQuestion < deck.questions.length){
+      this.setState({
+        currentQuestion: currentQuestion+1
+      })
+    } else {
+      this.showResults()
+    }
+  }
+  getQuestion = () => {
     const { deck, currentQuestion } = this.state;
-    const progress = 0;
+    if(currentQuestion >= deck.questions.length){
+      return deck.questions[currentQuestion-1]
+    }
+    return deck.questions[currentQuestion]
+  }
+  getProgress = (questions, currentQuestion) => {
+    return questions.length > 0 && currentQuestion > 0
+      ? currentQuestion/questions.length * 100
+      : 0
+  }
+  render() {
+    const { deck, currentQuestion, userAnswers } = this.state;
     if(!this.state.isLoadingComplete){
       return(<AppLoading/>)
     }
+
+    if(currentQuestion >= deck.questions.length){
+      return(<Results results={userAnswers}/>)
+    }
+
     return(
       <View style={styles.container}>
         <View>
-          <ProgressBar value={deck.questions.length > 0 && progress > 0
-            ? progress/deck.questions.length
-            : 0
-          } />
-          <Text>Progress: {progress}/{deck.questions.length}</Text>
+          <ProgressBar progress={this.getProgress(deck.questions, currentQuestion)} />
+          <Text>Progress: {currentQuestion}/{deck.questions.length}</Text>
         </View>
-        <QuestionCard question={deck.questions[currentQuestion]} />
+        <QuestionCard question={this.getQuestion()} />
         <View>
-          <TouchableHighlight style={styles.btnCorrect}>
-            <Text style={styles.btnText} >Correct</Text>
+          <TouchableHighlight style={styles.btnCorrect}
+            onPress={() => this.onUserAnswer(true)}>
+              <Text style={styles.btnText}>Correct</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.btnIncorrect}>
-            <Text style={styles.btnText} >Incorrect</Text>
+          <TouchableHighlight style={styles.btnIncorrect}
+            onPress={() => this.onUserAnswer(false)}>
+              <Text style={styles.btnText}>Incorrect</Text>
           </TouchableHighlight>
         </View>
       </View>

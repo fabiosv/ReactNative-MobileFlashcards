@@ -31,6 +31,10 @@ export function getDeck(title){
 }
 export function saveDeckTitle(title){
   return getDecks().then((decks) => {
+    if(decks.filter((d) => d.title === title).length > 0){
+      alert("This Deck already exist")
+      return "already exist"
+    }
     decks.push({"title": title, "questions": []})
     return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
   })

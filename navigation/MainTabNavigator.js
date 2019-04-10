@@ -1,7 +1,5 @@
-import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation'
-import {black, white} from '../helpers/colors'
+import { black, white } from '../helpers/colors'
 import DeckList from '../screens/DeckList'
 import NewDeck from '../screens/NewDeck'
 import NewCard from '../screens/NewCard'
@@ -47,13 +45,15 @@ export default createStackNavigator({
   AddCard: {
     screen: NewCard,
     navigationOptions: {
-      ...stackNavigationOptions
+      ...stackNavigationOptions,
+      title: "Create Card"
     }
   },
   Quiz: {
     screen: Quiz,
     navigationOptions: {
-      ...stackNavigationOptions
+      ...stackNavigationOptions,
+      title: "Quiz"
     }
   }
 })

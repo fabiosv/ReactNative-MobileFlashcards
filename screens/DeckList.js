@@ -7,15 +7,21 @@ import {gray} from '../helpers/colors'
 export default class DeckList extends Component {
   state = {
     decks: [{title: "React", questions: [1, 2, 3]}],
-    isLoadingComplete: false
+    isLoadingComplete: false,
+    refreshing: false
   }
-  componentDidMount(){
+  updateDecks = () => {
+    this.setState({refreshing: true})
     getDecks().then((storage_decks) => {
       this.setState((currentState) => ({
         decks: storage_decks,
-        isLoadingComplete: true
+        isLoadingComplete: true,
+        refreshing: false
       }))
     })
+  }
+  componentDidMount(){
+    this.updateDecks()
   }
   render() {
     const {decks, isLoadingComplete} = this.state;
@@ -29,13 +35,15 @@ export default class DeckList extends Component {
     return(
       <View style={styles.container}>
         <FlatList
+          refreshing={this.state.refreshing}
+          onRefresh={this.updateDecks}
           data={decks}
           keyExtractor={item => item.title.toString()}
           renderItem={(deck) => (
             <View style={styles.listItem}>
               <TouchableOpacity onPress={() => navigation.navigate(
                 'Deck',
-                { deck: deck.item }
+                { deckTitle: deck.item.title }
               )}>
                 <Text style={styles.listItemTitle}>{deck.item.title}</Text>
                 <Text style={styles.listItemCount}>{deck.item.questions.length} cards</Text>

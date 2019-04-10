@@ -4,13 +4,11 @@ export const preData = [
     "questions": [
       {
         "question": "What is React?",
-        "answer": "A library for managing user interfaces",
-        "correct": false
+        "answer": "A library for managing user interfaces"
       },
       {
         "question": "Where do you make Ajax requests in React?",
         "answer": "The componentDidMount lifecycle event",
-        "correct": true
       }
     ]
   },
@@ -20,7 +18,6 @@ export const preData = [
       {
         "question": "What is a closure?",
         "answer": "The combination of a function and the lexical environment within which that function was declared.",
-        "correct": true
       }
     ]
   }
