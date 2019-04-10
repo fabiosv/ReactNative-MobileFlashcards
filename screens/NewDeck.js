@@ -9,24 +9,20 @@ export default class NewDeck extends Component {
   onSubmit(){
     const {text} = this.state
     const { navigation } = this.props
-    if(!text) {
-      alert("Please inform a name")
-    } else {
-      saveDeckTitle(text).then((r) => {
-        console.log(r)
-        if(r !== "already exist"){
-          alert("New Deck Created!")
-          this.setState({text: ""})
-          navigation.navigate(
-            'Deck',
-            { deckTitle: text }
-          )
-        }
-      }).catch((err) => {
-        console.log(err)
-        alert("Ops! Something went wrong, try again please!")
-      })
-    }
+    saveDeckTitle(text).then((r) => {
+      console.log(r)
+      if(r !== "already exist"){
+        alert("New Deck Created!")
+        this.setState({text: ""})
+        navigation.navigate(
+          'Deck',
+          { deckTitle: text }
+        )
+      }
+    }).catch((err) => {
+      console.log(err)
+      alert("Ops! Something went wrong, try again please!")
+    })
   }
   render(){
     return(
@@ -37,7 +33,9 @@ export default class NewDeck extends Component {
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
         />
-        <TouchableHighlight style={styles.btnDark} onPress={() => this.onSubmit()}>
+        <TouchableHighlight style={styles.btnDark}
+          disabled={this.state.text.length === 0}
+          onPress={() => this.onSubmit()}>
           <Text style={styles.btnDarkText}>Submit</Text>
         </TouchableHighlight>
       </KeyboardAvoidingView>

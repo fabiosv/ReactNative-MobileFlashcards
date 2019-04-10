@@ -35,8 +35,11 @@ export default class NewCard extends Component {
             onChangeText={(answer) => this.setState({answer})}
             value={this.state.answer}/>
         </View>
-        <TouchableHighlight style={styles.btnDark} onPress={() => this.onSubmit()}>
-          <Text style={styles.btnDarkText}>Submit</Text>
+        <TouchableHighlight
+          disabled={this.state.question.length === 0 || this.state.answer.length === 0 }
+          style={styles.btnDark}
+          onPress={() => this.onSubmit()}>
+            <Text style={styles.btnDarkText}>Submit</Text>
         </TouchableHighlight>
       </KeyboardAvoidingView>
     )
