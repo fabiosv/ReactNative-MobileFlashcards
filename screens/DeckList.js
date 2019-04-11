@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   listItem: {
-
+    borderBottomWidth: 1,
+    borderColor: "black"
   },
   listItemTitle: {
     textAlign: 'center',

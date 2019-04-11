@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Sketch001.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -23,7 +23,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.mobileflashcards.exp"
+    },
+    "notification": {
+      "icon": "./assets/brain-cenit-view.png"
+    },
+    "android": {
+     "package": "org.mobileflashcards.exp"
     }
   }
 }

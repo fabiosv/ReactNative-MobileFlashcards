@@ -3,6 +3,7 @@ import { StyleSheet, View, StatusBar } from 'react-native'
 import { Constants } from 'expo'
 import AppNavigator from './navigation/AppNavigator'
 import { blue } from './helpers/colors'
+import { setLocalNotification } from './helpers/notification'
 
 function AppStatusBar ({backgroundColor, ...props}) {
   return (
@@ -13,8 +14,8 @@ function AppStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
+  componentDidMount(){
+    setLocalNotification()
   }
 
   render() {

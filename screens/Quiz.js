@@ -4,14 +4,16 @@ import { AppLoading } from "expo"
 import ProgressBar from '../components/ProgressBar'
 import QuestionCard from '../components/QuestionCard'
 import Results from '../components/Results'
-import {getDeck} from '../helpers/storage'
+import { getDeck } from '../helpers/storage'
+import { clearLocalNotification, setLocalNotification } from '../helpers/notification'
 
 export default class Quiz extends Component {
   state = {
     deck: {questions: []},
     isLoadingComplete: false,
     currentQuestion: 0,
-    userAnswers: []
+    userAnswers: [],
+    quizFinished: false
   }
 
   componentDidMount(){
@@ -34,39 +36,47 @@ export default class Quiz extends Component {
       userAnswers,
       currentQuestion: currentQuestion+1
     })
-    if(currentQuestion < deck.questions.length){
-      this.setState({
-        currentQuestion: currentQuestion+1
-      })
-    } else {
-      this.showResults()
-    }
   }
-  getQuestion = () => {
+
+  getCard = () => {
     const { deck, currentQuestion } = this.state;
     if(currentQuestion >= deck.questions.length){
-      return deck.questions[currentQuestion-1]
+      return {question: "", answer: ""}
     }
     return deck.questions[currentQuestion]
   }
+
   getProgress = (questions, currentQuestion) => {
     return questions.length > 0 && currentQuestion > 0
       ? currentQuestion/questions.length * 100
       : 0
   }
+
   restartQuiz = () => {
     this.setState({
       currentQuestion: 0,
-      userAnswers: []
+      userAnswers: [],
+      quizFinished: false
     })
   }
+
+  quizFinished = () => {
+    // This function will be called when ProgressBar reach 100% (to wait bar animation before display results)
+    this.setState({
+      quizFinished: true
+    })
+    clearLocalNotification()
+      .then(() => setLocalNotification())
+  }
+
   render() {
-    const { deck, currentQuestion, userAnswers } = this.state;
+    const { deck, currentQuestion, userAnswers, quizFinished } = this.state;
+
     if(!this.state.isLoadingComplete){
       return(<AppLoading/>)
     }
 
-    if(currentQuestion >= deck.questions.length){
+    if(quizFinished){
       return(
         <View style={styles.container}>
           <Results results={userAnswers}/>
@@ -87,10 +97,12 @@ export default class Quiz extends Component {
     return(
       <View style={styles.container}>
         <View>
-          <ProgressBar progress={this.getProgress(deck.questions, currentQuestion)} />
+          <ProgressBar
+            progress={this.getProgress(deck.questions, currentQuestion)}
+            onComplete={this.quizFinished} />
           <Text>Progress: {currentQuestion}/{deck.questions.length}</Text>
         </View>
-        <QuestionCard question={this.getQuestion()} />
+        <QuestionCard question={this.getCard()} />
         <View>
           <TouchableHighlight style={styles.btnCorrect}
             onPress={() => this.onUserAnswer(true)}>

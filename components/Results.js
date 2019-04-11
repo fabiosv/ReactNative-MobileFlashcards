@@ -1,42 +1,63 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native'
+import React, { Component } from 'react';
+import {View, Text, StyleSheet, Animated} from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
 import {green, red} from '../helpers/colors'
 
-export default function Results (props) {
-  const results = {
-    correct: {
-      key: 1,
-      value: 0,
-      svg: { fill: green },
-      arc: { outerRadius: '110%', cornerRadius: 10,  }
-    },
-    incorrect: {
-      key: 2,
-      value: 0,
-      svg: { fill: red },
-    },
-  }
-  props.results.forEach((res) => {
-    if(res === true) {
-      results.correct.value += 1
-    } else {
-      results.incorrect.value += 1
+export default class Results extends Component {
+  state = {
+    opacity: new Animated.Value(0),
+    data: {
+      correct: {
+        key: 1,
+        value: 0,
+        svg: { fill: green },
+        arc: { outerRadius: '110%', cornerRadius: 10,  }
+      },
+      incorrect: {
+        key: 2,
+        value: 0,
+        svg: { fill: red },
+      },
     }
-  })
-  console.log(results)
-  return(
-    <View style={styles.container}>
-      <PieChart
-        style={{ height: 300 }}
-        outerRadius={'70%'}
-        innerRadius={10}
-        data={[results.correct, results.incorrect]}/>
-      <Text style={styles.titleScore}>
-        Your score is: {results.correct.value / props.results.length * 100 }%
-      </Text>
-    </View>
-  )
+  }
+
+  animated = () => {
+    const { opacity } = this.state
+    Animated.timing(opacity, {toValue: 1, duration: 2000})
+      .start()
+  }
+
+  componentDidMount() {
+    const { data } = this.state
+
+    this.props.results.forEach((res) => {
+      if(res === true) {
+        data.correct.value += 1
+      } else {
+        data.incorrect.value += 1
+      }
+    })
+    this.setState({data})
+    console.log(data)
+
+    this.animated()
+  }
+  render(){
+    const { data, opacity } = this.state;
+    const { results } = this.props;
+    return(
+      <Animated.View style={[styles.container, {opacity}]}>
+        <PieChart
+          style={{ height: 300 }}
+          outerRadius={'70%'}
+          innerRadius={10}
+          data={[data.correct, data.incorrect]}/>
+        <Text style={styles.titleScore}>
+          Your score is: {(data.correct.value / results.length * 100).toFixed(0) }%
+        </Text>
+      </Animated.View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({

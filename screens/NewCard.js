@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 5,
     fontSize: 24,
-    textAlign: 'center'
+    textAlign: 'center',
+    borderBottomWidth: 1,
   },
   correctContainer: {
     flexDirection: 'row',
