@@ -69,3 +69,7 @@ To get started developing right away:
 # Tests
 
 * This app was tested on Android only
+
+# About Developer
+
+[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/0)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/0)[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/1)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/1)[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/2)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/2)[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/3)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/3)[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/4)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/4)[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/5)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/5)[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/6)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/6)[![](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/images/7)](https://sourcerer.io/fame/fabiosv/fabiosv/ReactNative-MobileFlashcards/links/7)
