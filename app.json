@@ -3,7 +3,7 @@
     "name": "Flashcards :D",
     "slug": "MobileFlashcards",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android"
@@ -30,7 +30,7 @@
       "icon": "./assets/brain-cenit-view.png"
     },
     "android": {
-     "package": "org.mobileflashcards.exp"
+      "package": "org.mobileflashcards.exp"
     }
   }
 }

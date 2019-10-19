@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
+  "expoServerPort": null,
   "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 20852,
-  "expoServerNgrokUrl": "https://7k-yqy.anonymous.mobileflashcards.exp.direct",
-  "packagerNgrokUrl": "https://packager.7k-yqy.anonymous.mobileflashcards.exp.direct",
-  "ngrokPid": 26880
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

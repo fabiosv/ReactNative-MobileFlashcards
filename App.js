@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, StatusBar } from 'react-native'
-import { Constants } from 'expo'
+import Constants from 'expo-constants'
 import AppNavigator from './navigation/AppNavigator'
 import { blue } from './helpers/colors'
 import { setLocalNotification } from './helpers/notification'
